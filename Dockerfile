@@ -4,6 +4,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app ./app
 COPY data ./data
+COPY data ./data_seed
 COPY docs ./docs
 COPY n8n ./n8n
 COPY tests ./tests
