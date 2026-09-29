@@ -1,0 +1,23 @@
+{
+  "name": "DozenDev - Quote Create",
+  "nodes": [
+    {
+      "parameters": {"httpMethod":"POST","path":"quote/create","responseMode":"lastNode"},
+      "id":"webhook-create","name":"Quote Request","type":"n8n-nodes-base.webhook","typeVersion":2,"position":[0,0]
+    },
+    {
+      "parameters": {
+        "method":"POST",
+        "url":"={{$env.QUOTE_ENGINE_URL || 'http://quote-engine:8000'}}/api/v1/quotes",
+        "sendBody":true,
+        "contentType":"raw",
+        "rawContentType":"application/json",
+        "body":"={{JSON.stringify($json.body || $json)}}"
+      },
+      "id":"http-create","name":"Create Quote","type":"n8n-nodes-base.httpRequest","typeVersion":4.2,"position":[240,0]
+    }
+  ],
+  "connections":{"Quote Request":{"main":[[{"node":"Create Quote","type":"main","index":0}]]}},
+  "settings":{"executionOrder":"v1"},
+  "active":false
+}

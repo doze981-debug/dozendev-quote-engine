@@ -1,0 +1,30 @@
+{
+  "name": "DozenDev - Contract Handoff",
+  "nodes": [
+    {
+      "parameters":{"httpMethod":"POST","path":"contract/create","responseMode":"onReceived"},
+      "id":"contract-webhook","name":"QUOTE_APPROVED","type":"n8n-nodes-base.webhook","typeVersion":2,"position":[0,0]
+    },
+    {
+      "parameters": {
+        "conditions": {"options":{"caseSensitive":true,"leftValue":"","typeValidation":"strict"},"conditions":[{"leftValue":"={{$json.body.event}}","rightValue":"QUOTE_APPROVED","operator":{"type":"string","operation":"equals"}}],"combinator":"and"}
+      },
+      "id":"verify-event","name":"Verify Event","type":"n8n-nodes-base.if","typeVersion":2.2,"position":[240,0]
+    },
+    {
+      "parameters": {
+        "assignments":{"assignments":[
+          {"id":"idem","name":"idempotency_key","value":"={{$json.body.quote_id + ':' + $json.body.quote_version}}","type":"string"},
+          {"id":"payload","name":"contract_payload","value":"={{$json.body}}","type":"object"}
+        ]},"options":{}
+      },
+      "id":"prepare","name":"Prepare Contract Payload","type":"n8n-nodes-base.set","typeVersion":3.4,"position":[480,-80]
+    }
+  ],
+  "connections":{
+    "QUOTE_APPROVED":{"main":[[{"node":"Verify Event","type":"main","index":0}]]},
+    "Verify Event":{"main":[[{"node":"Prepare Contract Payload","type":"main","index":0}],[]]}
+  },
+  "settings":{"executionOrder":"v1"},
+  "active":false
+}

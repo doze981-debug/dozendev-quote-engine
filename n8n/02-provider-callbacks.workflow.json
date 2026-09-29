@@ -1,0 +1,59 @@
+{
+  "name": "DozenDev - Provider Callbacks Skeleton",
+  "nodes": [
+    {
+      "parameters": {"httpMethod": "POST", "path": "dozendev-provider-callback", "responseMode": "responseNode", "options": {}},
+      "id": "1",
+      "name": "Provider Callback",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body||$json; if(!b.quote_id||!b.kind) throw new Error('quote_id and kind required'); const paths={contract_created:`/api/v1/quotes/${b.quote_id}/contract/provider-created`,contract_signed:`/api/v1/quotes/${b.quote_id}/contract/signed`,deposit_created:`/api/v1/quotes/${b.quote_id}/deposit/provider-created`,deposit_paid:`/api/v1/quotes/${b.quote_id}/deposit/paid`}; if(!paths[b.kind]) throw new Error('unsupported kind'); return [{json:{...b,engine_path:paths[b.kind]}}];"
+      },
+      "id": "2",
+      "name": "Map Callback",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ 'http://quote-engine:8000' + $json.engine_path }}",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Content-Type", "value": "application/json"}]},
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify($json.payload || {}) }}",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Update Engine",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {"respondWith": "json", "responseBody": "={{ $json }}", "options": {}},
+      "id": "4",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [760, 0]
+    }
+  ],
+  "connections": {
+    "Provider Callback": {"main": [[{"node": "Map Callback", "type": "main", "index": 0}]]},
+    "Map Callback": {"main": [[{"node": "Update Engine", "type": "main", "index": 0}]]},
+    "Update Engine": {"main": [[{"node": "Respond", "type": "main", "index": 0}]]}
+  },
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "22222222-2222-4222-8222-222222222222",
+  "meta": {"templateCredsSetupCompleted": false},
+  "tags": []
+}

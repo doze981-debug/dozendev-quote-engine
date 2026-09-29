@@ -1,0 +1,198 @@
+{
+  "documento": "Contratto Master DozenDev - Sviluppo web, applicazioni e servizi digitali",
+  "versione": "Bozza operativa 2.3 - final legal consistency check",
+  "data_revisione": "2026-09-28",
+  "ambito": "B2B",
+  "nota": "Modello operativo B2B. Revisionato per coerenza contrattuale, responsabilità, backup e sicurezza. Prima dell'uso commerciale definitivo è raccomandata una validazione spot da parte di un professionista legale italiano.",
+  "campi_variabili": {
+    "cliente_ragione_sociale": "[CLIENTE / RAGIONE SOCIALE]",
+    "cliente_piva_cf": "[P.IVA / C.F.]",
+    "cliente_sede": "[SEDE]",
+    "cliente_referente": "[REFERENTE]",
+    "cliente_email": "[EMAIL]",
+    "cliente_pec": "[PEC - SE PRESENTE]",
+    "dozendev_dati": "[DATI LEGALI DOZENDEV]",
+    "dozendev_pec": "[PEC DOZENDEV - SE PRESENTE]",
+    "data": "[DATA]",
+    "foro": "[FORO DA DEFINIRE]"
+  },
+  "regole_default": {
+    "pagamento_piccoli_progetti": "50% all'avvio, 50% prima del go-live o consegna definitiva",
+    "pagamento_progetti_maggiori": "40/30/30 se previsto nell'Allegato A",
+    "termine_pagamento_legale_default": "30 giorni dal ricevimento della fattura o richiesta equivalente, salvo diversa scadenza contrattuale valida",
+    "interessi_mora": "D.Lgs. 231/2002, ove applicabile",
+    "costi_recupero": "importo forfettario previsto dal D.Lgs. 231/2002, fatto salvo il maggior danno",
+    "assistenza_correttiva_giorni": 30,
+    "feedback_staging_giorni_lavorativi": 7,
+    "sospensione_cliente_giorni_lavorativi": 10,
+    "ripianificazione_giorni_calendario": 30,
+    "possibile_chiusura_giorni_calendario": 60,
+    "termine_regolarizzazione_inadempimento_giorni": 15,
+    "riservatezza_anni": 5,
+    "tracking_newsletter_individuale": "disattivato di default",
+    "cap_responsabilita_colpa_lieve": "corrispettivo netto complessivo del singolo progetto",
+    "firma_clausole_1341_1342": "firma elettronica separata dalla firma generale; una mera checkbox non è usata come unico mezzo di approvazione",
+    "responsabilita_danni_indiretti": "Esclusi nei limiti consentiti dalla legge i danni meramente indiretti/consequenziali e pretese speculative; danno emergente e lucro cessante restano regolati dagli artt. 1223 ss. c.c.",
+    "backup_default": "Obbligo di backup DozenDev solo se previsto dallo scope o imposto dalla legge; il Cliente mantiene copie indipendenti dei dati critici salvo servizio gestito espressamente affidato a DozenDev.",
+    "security_incident": "Notifica reciproca senza ingiustificato ritardo; se DozenDev è responsabile del trattamento, notifica al titolare senza ingiustificato ritardo ai sensi del GDPR."
+  },
+  "allegati": [
+    "Allegato A - Scope, deliverable, esclusioni, tempi, criteri di accettazione e condizioni economiche",
+    "DPA - se applicabile",
+    "Addendum AI - se applicabile",
+    "Specifiche tecniche / SLA / piano manutenzione - se applicabili",
+    "Eventuali ordini aggiuntivi / change request approvati"
+  ],
+  "clausole": [
+    {
+      "numero": 1,
+      "titolo": "1. Ambito B2B, oggetto e documentazione del progetto",
+      "testo": "Il presente modello è predisposto per rapporti tra professionisti e/o imprese (B2B). Il Cliente dichiara di concludere il contratto nell'esercizio della propria attività imprenditoriale o professionale. Qualora, in base alle circostanze effettive, il Cliente debba essere qualificato come consumatore, il presente modello dovrà essere adattato e troveranno comunque applicazione le norme inderogabili a tutela del consumatore.\n\nDozenDev svolgerà le attività descritte nell'Allegato A, che identifica scope, deliverable, esclusioni, tempistiche, criteri di accettazione e condizioni economiche. Le attività non espressamente incluse sono fuori scope e potranno richiedere una change request, un ordine aggiuntivo o un'integrazione economica e temporale concordata per iscritto. In caso di contrasto, le previsioni specifiche dell'Allegato A prevalgono limitatamente alla materia da esso disciplinata."
+    },
+    {
+      "numero": 2,
+      "titolo": "2. Avvio del progetto, corrispettivi, fatturazione e pagamenti",
+      "testo": "Salvo diversa previsione nell'Allegato A, per i progetti di dimensioni contenute il corrispettivo è suddiviso in 50% all'avvio e 50% prima del go-live o della consegna definitiva; per progetti maggiori potrà essere adottata una scansione 40/30/30. I corrispettivi si intendono al netto di IVA e di eventuali ulteriori oneri di legge, ove dovuti.\n\nLe attività iniziano dopo la sottoscrizione della documentazione contrattuale, la ricezione dell'acconto e la disponibilità dei materiali e accessi minimi necessari. Le singole scadenze sono indicate nell'Allegato A o nella fattura. In mancanza di un termine contrattuale specifico, per le transazioni commerciali cui si applica il D.Lgs. 231/2002 trovano applicazione i termini legali, di regola decorrenti dal ricevimento della fattura o della richiesta equivalente di pagamento, secondo quanto previsto dalla normativa vigente.\n\nIn caso di ritardo trovano applicazione, ove ne ricorrano i presupposti, gli interessi moratori e il rimborso dei costi di recupero previsti dal D.Lgs. 231/2002, incluso l'importo forfettario previsto dalla normativa, fatto salvo il maggior danno documentabile. In presenza di importi scaduti, DozenDev può sospendere le prestazioni non ancora eseguite dopo comunicazione scritta al Cliente, senza che il periodo di sospensione sia imputabile alle tempistiche originarie del progetto."
+    },
+    {
+      "numero": 3,
+      "titolo": "3. Materiali, contenuti e responsabilità del Cliente",
+      "testo": "Il Cliente fornisce tempestivamente testi, immagini, marchi, dati, credenziali, autorizzazioni e informazioni necessari all'esecuzione del progetto. Il Cliente garantisce di disporre dei diritti e delle autorizzazioni necessari sui materiali forniti e resta responsabile della loro liceità, accuratezza e utilizzabilità. I ritardi o le incompletezze nella fornitura comportano lo slittamento delle tempistiche e possono determinare la ripianificazione del progetto secondo l'articolo 11."
+    },
+    {
+      "numero": 4,
+      "titolo": "4. Dominio, hosting e accessi tecnici",
+      "testo": "Dominio, hosting e account strategici sono preferibilmente intestati e mantenuti sotto il controllo del Cliente. DozenDev opera, quando possibile, tramite accesso collaboratore o utenza tecnica dedicata e con privilegi limitati a quanto necessario. Credenziali e accessi devono essere trasferiti con modalità ragionevolmente sicure. Il Cliente resta responsabile della custodia delle credenziali a lui assegnate e delle modifiche eseguite autonomamente o da terzi non incaricati da DozenDev."
+    },
+    {
+      "numero": 5,
+      "titolo": "5. Sviluppo, staging, revisioni e criteri di accettazione",
+      "testo": "Lo sviluppo può essere reso disponibile in un ambiente di staging o con modalità equivalente. Numero, modalità e perimetro delle revisioni incluse sono definiti nell'Allegato A. Il Cliente comunica correzioni e osservazioni entro 7 giorni lavorativi, salvo diverso termine concordato.\n\nAi fini del progetto, costituisce malfunzionamento una difformità riproducibile rispetto a un requisito o criterio di accettazione espressamente previsto nell'Allegato A. Non costituiscono malfunzionamenti le nuove funzionalità, i cambi di requisito, le modifiche estetiche o funzionali non previste, le incompatibilità con ambienti non inclusi nello scope e le conseguenze di modifiche apportate dal Cliente o da terzi. Tali richieste possono essere trattate come change request."
+    },
+    {
+      "numero": 6,
+      "titolo": "6. Approvazione, saldo e go-live",
+      "testo": "Completate le revisioni previste, il Cliente approva per iscritto la versione finale oppure segnala le difformità rispetto ai criteri di accettazione concordati. Ricevuto il saldo, DozenDev procede al go-live o alla consegna secondo quanto previsto nell'Allegato A. In assenza di riscontro DozenDev può sollecitare il Cliente e applicare le regole di sospensione e ripianificazione; il silenzio non costituisce automaticamente accettazione definitiva salvo specifico accordo scritto."
+    },
+    {
+      "numero": 7,
+      "titolo": "7. Proprietà intellettuale, codice sorgente e componenti riutilizzabili",
+      "testo": "A seguito dell'integrale pagamento dei compensi dovuti, DozenDev cede al Cliente in via esclusiva, per tutta la durata di protezione prevista dalla legge e senza limitazioni territoriali, i diritti di utilizzazione economica sui deliverable originali sviluppati esclusivamente e specificamente per il Cliente e indicati nell'Allegato A come oggetto di cessione, comprendendo, nei limiti consentiti dalla legge, il diritto di utilizzare, riprodurre, eseguire, installare, modificare, adattare, trasformare, manutenere, far manutenere da terzi e distribuire tali deliverable.\n\nRestano di titolarità di DozenDev il know-how, le metodologie, gli strumenti interni, i template, i boilerplate, le librerie, i framework, i moduli preesistenti e i componenti generici o riutilizzabili non sviluppati esclusivamente per il Cliente. Per tali elementi incorporati nei deliverable, DozenDev concede al Cliente una licenza d'uso non esclusiva, irrevocabile per quanto necessario all'uso, alla modifica e alla manutenzione del deliverable consegnato, trasferibile insieme al progetto ove tecnicamente e giuridicamente consentito.\n\nComponenti open source, font, plugin, immagini, API, modelli AI, software o altri elementi di terzi restano soggetti alle rispettive licenze e condizioni. DozenDev segnalerà nella documentazione di progetto le restrizioni di licenza di terzi conosciute che incidano in modo sostanziale sull'uso, modifica o distribuzione dei deliverable. Eventuali diritti morali dell'autore restano regolati dalla normativa applicabile. Qualora il Cliente richieda l'esclusiva anche su componenti normalmente riutilizzabili, ciò dovrà essere espressamente previsto nell'Allegato A o in accordo separato."
+    },
+    {
+      "numero": 8,
+      "titolo": "8. Servizi e costi di terze parti",
+      "testo": "Salvo inclusione espressa nel preventivo o nell'Allegato A, dominio, hosting, cloud, plugin, API, SaaS, posta elettronica, servizi AI, sistemi di pagamento e altre licenze o servizi di terzi sono a carico del Cliente. DozenDev non risponde delle variazioni di prezzo, condizioni, disponibilità o funzionalità decise autonomamente dai rispettivi fornitori, né dei malfunzionamenti intrinseci dei servizi terzi non imputabili a DozenDev.\n\nResta ferma la responsabilità di DozenDev per errori di configurazione o integrazione direttamente imputabili alle attività svolte da DozenDev nell'ambito dello scope concordato, nei limiti previsti dal presente contratto."
+    },
+    {
+      "numero": 9,
+      "titolo": "9. Assistenza correttiva post-consegna",
+      "testo": "Per 30 giorni dal go-live o dalla consegna definitiva, salvo diverso termine indicato nell'Allegato A, DozenDev presta senza costi aggiuntivi un servizio di assistenza correttiva sui malfunzionamenti direttamente riconducibili al proprio lavoro e consistenti in difformità rispetto allo scope e ai criteri di accettazione approvati.\n\nSono escluse nuove funzionalità, change request, modifiche successive del Cliente o di terzi, problemi infrastrutturali o di servizi esterni non imputabili a DozenDev, uso improprio e interventi su ambienti non inclusi nello scope. Il periodo di assistenza correttiva costituisce una prestazione commerciale aggiuntiva e non limita né sostituisce eventuali diritti o rimedi inderogabili previsti dalla legge."
+    },
+    {
+      "numero": 10,
+      "titolo": "10. Manutenzione e assistenza continuativa",
+      "testo": "L'assistenza correttiva post-consegna non costituisce manutenzione continuativa. Decorso il relativo periodo, gli interventi sono eseguiti mediante piano di manutenzione, se sottoscritto, oppure a consumo. Eventuali SLA definiscono espressamente livelli di servizio, orari di copertura, tempi di presa in carico ed eventuali tempi di ripristino; in mancanza di specifica previsione, i tempi indicati si intendono come obiettivi di presa in carico e non come garanzia di risoluzione entro un termine determinato."
+    },
+    {
+      "numero": 11,
+      "titolo": "11. Ritardi del Cliente, sospensione, ripianificazione e chiusura del progetto",
+      "testo": "Se materiali, accessi, approvazioni o feedback necessari mancano per oltre 10 giorni lavorativi, DozenDev può sospendere il progetto previa comunicazione scritta. Decorso un periodo complessivo di 30 giorni di inattività imputabile al Cliente, DozenDev può ripianificare le attività in base alla propria disponibilità e, se le condizioni operative o i costi sono nel frattempo mutati in modo documentabile, proporre un aggiornamento delle condizioni economiche limitatamente alle attività non ancora eseguite.\n\nSe l'inattività imputabile al Cliente supera 60 giorni, DozenDev può comunicare la chiusura anticipata del progetto. In tal caso restano dovuti i compensi maturati per le attività effettivamente svolte, i deliverable specificamente realizzati e non riutilizzabili e i costi di terzi non recuperabili, al netto di quanto già corrisposto. I materiali e deliverable integralmente pagati saranno messi a disposizione del Cliente nello stato in cui si trovano."
+    },
+    {
+      "numero": 12,
+      "titolo": "12. Recesso, inadempimenti e sospensione",
+      "testo": "Il Cliente può interrompere anticipatamente il progetto con comunicazione scritta. Restano dovuti i compensi maturati per le attività effettivamente eseguite fino alla data di efficacia del recesso, i costi di terzi non recuperabili e le attività specificamente realizzate e non ragionevolmente riutilizzabili, al netto delle somme già corrisposte.\n\nIn caso di inadempimento rilevante di una Parte, la Parte adempiente può intimare per iscritto la regolarizzazione entro 15 giorni, salvo che la natura dell'inadempimento richieda un termine diverso o che ricorra un caso non sanabile. Decorso inutilmente tale termine restano esperibili i rimedi previsti dalla legge e dal contratto. In presenza di pagamenti scaduti o di impedimenti imputabili al Cliente che rendano impossibile proseguire, DozenDev può sospendere le prestazioni previa comunicazione scritta."
+    },
+    {
+      "numero": 13,
+      "titolo": "13. Forza maggiore",
+      "testo": "Nessuna Parte risponde di ritardi o inadempimenti causati da eventi non ragionevolmente prevedibili e non imputabili che rendano impossibile l'esecuzione delle prestazioni. La Parte interessata comunica l'evento senza ingiustificato ritardo e adotta misure ragionevoli per limitarne gli effetti. Se l'impedimento è temporaneo, le tempistiche sono sospese e ripianificate; se si prolunga oltre 30 giorni, le Parti valutano una rimodulazione. In caso di impossibilità definitiva, restano dovute le attività già eseguite e i costi non recuperabili."
+    },
+    {
+      "numero": 14,
+      "titolo": "14. Responsabilità",
+      "testo": "DozenDev risponde dei danni direttamente riconducibili a propri inadempimenti secondo la normativa applicabile. Nei limiti consentiti dalla legge, DozenDev non risponde di disservizi imputabili esclusivamente a hosting, registrar, cloud, API, piattaforme, plugin, librerie o altri terzi; di modifiche del Cliente o di soggetti terzi; di uso difforme dalle istruzioni; di credenziali compromesse per fatto imputabile al Cliente; o dell'illiceità e inesattezza dei materiali forniti dal Cliente.\n\nSalvo i casi in cui una limitazione non sia consentita dalla legge, e in particolare salvo dolo, colpa grave e violazioni di obblighi inderogabili o di ordine pubblico, la responsabilità complessiva di DozenDev per danni derivanti da colpa lieve e riferibili al singolo progetto non potrà eccedere il corrispettivo netto complessivo previsto per tale progetto. Non sono garantiti specifici risultati economici, commerciali, SEO, di traffico, posizionamento o conversione salvo obbligazioni di risultato espressamente assunte per iscritto."
+    },
+    {
+      "numero": 15,
+      "titolo": "15. Danni indiretti, continuità operativa, backup e perdita di dati",
+      "testo": "Fermo quanto previsto dall'articolo 14 e salvo i casi in cui una limitazione non sia consentita dalla legge, il risarcimento resta soggetto ai criteri di causalità, prevedibilità e prova previsti dalla normativa applicabile. Nei limiti consentiti dalla legge, DozenDev non risponde di danni meramente indiretti o consequenziali, perdita di opportunità non adeguatamente provata, pretese speculative o conseguenze economiche non immediatamente e direttamente riconducibili all'inadempimento. L'eventuale perdita subita e il mancato guadagno direttamente risarcibili restano regolati dagli artt. 1223 e seguenti c.c. e, in caso di colpa lieve, dal limite economico previsto all'articolo 14.\n\nSalvo che un servizio di backup, disaster recovery o gestione dell'infrastruttura sia espressamente incluso nell'Allegato A o imposto dagli obblighi inderogabili applicabili, il Cliente mantiene copie di sicurezza indipendenti e ragionevolmente aggiornate dei dati, contenuti e configurazioni critiche prima di migrazioni, deploy o interventi tecnici. Quando DozenDev assume contrattualmente la gestione di backup o disaster recovery, l'Allegato A o lo SLA specifica almeno perimetro, frequenza, retention, ubicazione, modalità di ripristino e, ove pertinente, test di restore.\n\nNessuna disposizione del presente articolo esclude la responsabilità di DozenDev per perdita o corruzione di dati direttamente imputabile a una propria condotta per la quale la legge non consenta l'esonero o la limitazione, né riduce gli obblighi di sicurezza o ripristino applicabili quando DozenDev tratta dati personali o gestisce servizi espressamente affidati."
+    },
+    {
+      "numero": 16,
+      "titolo": "16. Incidenti di sicurezza e violazioni di dati personali",
+      "testo": "Ciascuna Parte informa l'altra senza ingiustificato ritardo degli incidenti di sicurezza di cui venga a conoscenza e che possano incidere in modo rilevante sui sistemi, credenziali, dati o servizi oggetto del progetto, fornendo le informazioni ragionevolmente disponibili e collaborando alle misure di contenimento e ripristino di rispettiva competenza.\n\nQuando DozenDev opera quale responsabile del trattamento ai sensi del GDPR e viene a conoscenza di una violazione di dati personali relativa ai trattamenti affidati, informa il Cliente/titolare senza ingiustificato ritardo e coopera secondo il DPA e la normativa applicabile. Restano a carico del titolare le notifiche all'autorità di controllo e le comunicazioni agli interessati quando previste dalla legge, salvo diversa ripartizione inderogabile o specificamente prevista nel DPA.\n\nLe misure tecniche e organizzative applicabili sono definite in funzione del rischio e, quando pertinente, comprendono misure per assicurare riservatezza, integrità, disponibilità, resilienza e capacità di ripristino. Le responsabilità per danni connessi a violazioni della normativa sulla protezione dei dati sono determinate secondo i ruoli effettivamente ricoperti, la condotta delle Parti e le norme inderogabili applicabili; il presente contratto non limita diritti degli interessati o responsabilità che non possano essere validamente limitate."
+    },
+    {
+      "numero": 17,
+      "titolo": "17. Protezione dei dati personali - GDPR",
+      "testo": "Ciascuna Parte opera quale autonomo titolare per i dati personali trattati per proprie finalità amministrative, fiscali, contabili e contrattuali. La qualificazione privacy delle Parti rispetto ai trattamenti effettuati nell'ambito del progetto dipende dalle attività effettivamente svolte e dalla concreta determinazione di finalità e mezzi; le etichette contrattuali non prevalgono sulla qualificazione prevista dalla normativa applicabile.\n\nQuando DozenDev tratta dati personali per conto del Cliente e sulla base delle sue istruzioni, le Parti sottoscrivono, prima dell'inizio del relativo trattamento, uno specifico Data Processing Agreement (DPA) ai sensi dell'art. 28 GDPR. Il DPA disciplina, tra l'altro, oggetto, durata, natura e finalità del trattamento, categorie di dati e interessati, istruzioni documentate, misure di sicurezza, eventuali sub-responsabili, assistenza al titolare e cancellazione o restituzione dei dati.\n\nSalvo espressa autorizzazione documentata del Cliente e valida base giuridica ove necessaria, DozenDev non utilizza dati personali o informazioni riservate del Cliente per addestrare o migliorare modelli di intelligenza artificiale destinati a finalità generali proprie o di terzi."
+    },
+    {
+      "numero": 18,
+      "titolo": "18. Newsletter, registrazioni e automazioni",
+      "testo": "Quando previste dallo scope, le funzionalità possono comprendere registrazione, raccolta di preferenze e consensi, eventuale conferma dell'indirizzo email, memorizzazione nel database o nella piattaforma di mailing, gestione dello stato di iscrizione, invio automatizzato e disiscrizione. Il Cliente resta responsabile delle scelte giuridiche relative al trattamento; DozenDev implementa le funzionalità tecniche concordate sulla base delle indicazioni ricevute."
+    },
+    {
+      "numero": 19,
+      "titolo": "19. Tracking di newsletter e comunicazioni - clausola condizionale",
+      "testo": "Se il progetto utilizza tracking pixel o tecnologie equivalenti nelle comunicazioni email, il loro impiego e la relativa finalità devono essere resi noti preventivamente al destinatario e la funzionalità deve essere espressamente identificata nell'Allegato A o nella documentazione del progetto. Il Cliente deve assicurare che informativa, base giuridica e, ove richiesto, modalità di acquisizione e revoca del consenso siano adeguate alle tecnologie effettivamente utilizzate.\n\nIl ricorso a statistiche aggregate senza consenso è ammesso soltanto quando ricorrano effettivamente i presupposti normativi applicabili, incluse adeguate tecniche di anonimizzazione ove richieste. Salvo diversa richiesta espressa e verifica dei relativi presupposti, il tracking individuale delle aperture resta disattivato di default."
+    },
+    {
+      "numero": 20,
+      "titolo": "20. Sviluppo e dati personali",
+      "testo": "Salvo necessità concordate, il Cliente non fornisce dati personali reali destinati all'uso in ambienti di sviluppo o staging. Ove possibile sono utilizzati dati di test, anonimizzati o pseudonimizzati. DozenDev adotta misure tecniche e organizzative adeguate alla natura delle attività svolte; le misure specifiche relative ai trattamenti effettuati quale responsabile sono definite nel DPA o nella documentazione tecnica collegata."
+    },
+    {
+      "numero": 21,
+      "titolo": "21. Sistemi di intelligenza artificiale",
+      "testo": "Quando il progetto comprende sistemi, funzionalità o componenti di intelligenza artificiale, le Parti effettuano, prima della messa in produzione e per quanto pertinente allo specifico progetto, una valutazione dei rispettivi ruoli e della classificazione normativa del sistema. Ruoli, responsabilità e adempimenti applicabili sono disciplinati, ove necessario, in uno specifico Addendum AI.\n\nL'Addendum può definire finalità e uso previsto, componenti e modelli utilizzati, ruoli delle Parti, classificazione, supervisione umana, trasparenza, logging, gestione dei dati, servizi terzi, gestione delle modifiche, incidenti, documentazione e obblighi applicabili. La valutazione deve essere riesaminata qualora cambino in modo rilevante l'uso previsto, il modello, l'integrazione o altre caratteristiche suscettibili di incidere sulla qualificazione del sistema. Quando siano applicabili obblighi della catena del valore previsti dalla normativa AI, le Parti documentano per iscritto le informazioni, l'accesso tecnico, l'assistenza e le responsabilità necessarie alla conformità."
+    },
+    {
+      "numero": 22,
+      "titolo": "22. Conformità normativa specifica e accessibilità",
+      "testo": "Qualora il progetto ricada in normative settoriali o requisiti specifici - inclusi, a titolo esemplificativo, requisiti di accessibilità digitale, commercio elettronico, servizi regolamentati o obblighi documentali particolari - l'Allegato A deve individuare, ove pertinenti, gli standard tecnici, i test e i deliverable di conformità espressamente inclusi nello scope. DozenDev implementa i requisiti tecnici concordati e resta responsabile dei propri obblighi inderogabili; il Cliente resta responsabile delle decisioni e degli adempimenti che competono al proprio ruolo e alla propria attività."
+    },
+    {
+      "numero": 23,
+      "titolo": "23. Riservatezza",
+      "testo": "Ciascuna Parte mantiene riservate le informazioni tecniche, commerciali, organizzative e strategiche non pubbliche ricevute nell'ambito del rapporto e le utilizza esclusivamente per l'esecuzione del contratto. Rientrano tra tali informazioni, a titolo esemplificativo, credenziali, documentazione interna, dati aziendali, codice non pubblico, architetture, procedure, preventivi e informazioni relative a clienti o fornitori.\n\nL'obbligo non si applica alle informazioni già pubbliche senza violazione del contratto, legittimamente note alla Parte ricevente o che devono essere comunicate per legge o ordine dell'autorità. L'obbligo di riservatezza permane per 5 anni dalla cessazione del rapporto; per credenziali, segreti commerciali e informazioni la cui natura richieda una protezione più lunga, permane finché tali informazioni conservano legittimamente carattere riservato."
+    },
+    {
+      "numero": 24,
+      "titolo": "24. Collaboratori e subfornitori",
+      "testo": "DozenDev può avvalersi, sotto la propria responsabilità contrattuale verso il Cliente, di collaboratori e subfornitori qualificati per l'esecuzione di attività comprese nello scope. Tali soggetti sono vincolati, ove necessario, da obblighi di riservatezza coerenti con il presente contratto. Qualora il loro coinvolgimento comporti trattamento di dati personali per conto del Cliente, l'impiego di eventuali sub-responsabili è disciplinato dal DPA e dalla normativa applicabile."
+    },
+    {
+      "numero": 25,
+      "titolo": "25. Comunicazioni formali e modifiche",
+      "testo": "Le comunicazioni operative possono avvenire tramite gli strumenti concordati tra le Parti, compresa la posta elettronica. Recesso, contestazioni rilevanti, sospensione definitiva, messa in mora e altre comunicazioni di particolare rilevanza contrattuale devono avvenire tramite PEC, quando disponibile per entrambe le Parti, oppure tramite altro mezzo concordato idoneo a documentare in modo affidabile invio e ricezione. Le Parti mantengono aggiornati i propri recapiti. Modifiche sostanziali di contratto, scope, deliverable, tempi o condizioni economiche richiedono accordo scritto."
+    },
+    {
+      "numero": 26,
+      "titolo": "26. Durata e sopravvivenza delle clausole",
+      "testo": "Il contratto relativo al singolo progetto decorre dalla sua sottoscrizione e rimane efficace sino al completamento delle prestazioni, salvo cessazione anticipata secondo il contratto o la legge. Le clausole che per loro natura sono destinate a produrre effetti anche dopo la cessazione - incluse quelle relative a pagamenti maturati, proprietà intellettuale, riservatezza, protezione dei dati, responsabilità e restituzione o conservazione dei materiali - continuano ad applicarsi per il periodo previsto dal contratto o dalla normativa applicabile."
+    },
+    {
+      "numero": 27,
+      "titolo": "27. Validità delle clausole, legge applicabile e foro",
+      "testo": "L'eventuale nullità, invalidità o inefficacia di una disposizione non determina automaticamente l'invalidità delle restanti disposizioni. Le Parti, ove possibile, sostituiscono la previsione invalida con una disposizione valida coerente con la finalità originaria. Il contratto è regolato dalla legge italiana. Per le controversie relative all'interpretazione, esecuzione o cessazione del contratto è competente in via esclusiva il Foro di [FORO DA DEFINIRE], salvo competenze territoriali inderogabili previste dalla normativa applicabile."
+    },
+    {
+      "numero": 28,
+      "titolo": "28. Documentazione contrattuale e allegati",
+      "testo": "Costituiscono parte integrante del rapporto, quando richiamati o sottoscritti: (i) Allegato A - Scope, deliverable, esclusioni, tempi, criteri di accettazione e condizioni economiche; (ii) eventuale DPA; (iii) eventuale Addendum AI; (iv) eventuali specifiche tecniche, SLA o piani di manutenzione; (v) eventuali change request, ordini aggiuntivi o successive integrazioni concordate per iscritto. In caso di contrasto, l'allegato predisposto specificamente per il singolo progetto prevale limitatamente alla materia da esso disciplinata."
+    },
+    {
+      "numero": 29,
+      "titolo": "29. Sottoscrizione elettronica e conservazione delle evidenze",
+      "testo": "Le Parti possono sottoscrivere il contratto e i relativi allegati mediante strumenti di firma elettronica idonei ai sensi della normativa applicabile. Nel flusso telematico predisposto da DozenDev, la sottoscrizione generale del contratto e la specifica approvazione delle clausole richiamate all'articolo 30 sono raccolte mediante azioni di firma elettronica distinte e riconducibili al medesimo documento o fascicolo di firma; una mera casella di spunta non è utilizzata come unico mezzo per la specifica approvazione richiesta dall'art. 1341, comma 2, c.c.\n\nDozenDev conserva, secondo le modalità tecnicamente disponibili e per il tempo necessario alla tutela del rapporto contrattuale, il documento sottoscritto e le evidenze prodotte dal provider di firma, quali audit trail, identificativi della transazione e marcature temporali disponibili, nel rispetto della normativa applicabile in materia di protezione dei dati."
+    },
+    {
+      "numero": 30,
+      "titolo": "30. Approvazione specifica ai sensi degli artt. 1341 e 1342 c.c.",
+      "testo": "Qualora il presente contratto sia utilizzato quale modello, formulario o insieme di condizioni generali predisposte da DozenDev, il Cliente dichiara di aver letto e approva specificamente, ai sensi e per gli effetti degli artt. 1341 e 1342 c.c., le seguenti clausole: art. 2 (sospensione per ritardo nei pagamenti); art. 8 (servizi di terzi e relative limitazioni); art. 9 (assistenza correttiva ed esclusioni); art. 11 (sospensione, ripianificazione e chiusura per ritardi del Cliente); art. 12 (recesso, rimedi e sospensione); art. 14 (limitazione di responsabilità); art. 15 (danni indiretti, backup e perdita di dati); art. 27 (foro esclusivo). La specifica approvazione deve risultare separatamente dalla sottoscrizione generale del contratto."
+    }
+  ]
+}

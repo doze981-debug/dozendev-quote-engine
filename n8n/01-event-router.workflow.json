@@ -1,0 +1,40 @@
+{
+  "name": "DozenDev - Event Router",
+  "nodes": [
+    {
+      "parameters": {"httpMethod": "POST", "path": "dozendev-events", "responseMode": "responseNode", "options": {}},
+      "id": "1",
+      "name": "DozenDev Events",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const b=$json.body||$json; const event=b.event; const actions={QUOTE_SENT:'deliver_quote',QUOTE_APPROVED:'create_contract_envelope',CONTRACT_SENT:'wait_signature',CONTRACT_SIGNED:'create_deposit_checkout',DEPOSIT_PENDING:'wait_payment',ONBOARDING_STARTED:'send_onboarding',ONBOARDING_UPDATED:'sync_onboarding',PROJECT_READY:'create_project'}; return [{json:{ok:true,event,action:actions[event]||'log_only',payload:b}}];"
+      },
+      "id": "2",
+      "name": "Resolve Action",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {"respondWith": "json", "responseBody": "={{ $json }}", "options": {}},
+      "id": "3",
+      "name": "Acknowledge",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [500, 0]
+    }
+  ],
+  "connections": {
+    "DozenDev Events": {"main": [[{"node": "Resolve Action", "type": "main", "index": 0}]]},
+    "Resolve Action": {"main": [[{"node": "Acknowledge", "type": "main", "index": 0}]]}
+  },
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "11111111-1111-4111-8111-111111111111",
+  "meta": {"templateCredsSetupCompleted": false},
+  "tags": []
+}

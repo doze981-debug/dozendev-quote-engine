@@ -1,0 +1,30 @@
+### Health
+GET http://localhost:8000/health
+
+### Create quote
+POST http://localhost:8000/api/v1/quotes
+Content-Type: application/json
+
+{
+  "customer": {
+    "business_name": "ACME SRL",
+    "vat_number": "IT00000000000",
+    "address": "Via Roma 1, Torino",
+    "contact_name": "Mario Rossi",
+    "email": "mario@example.com"
+  },
+  "project_name": "Nuovo sito corporate",
+  "project_type": "web",
+  "items": [
+    {"code": "WEB_BASE_5", "quantity": 1},
+    {"code": "AUTO_CONTENT", "quantity": 1}
+  ],
+  "discount": {"amount": 300, "reason": "Promo commerciale"},
+  "valid_days": 14,
+  "delivery_weeks": "3-4 settimane",
+  "acceptance_criteria": ["Staging approvato", "Form contatto operativo"],
+  "exclusions": ["Produzione testi e immagini"]
+}
+
+### The create response contains quote_id and public_token/public_url.
+### Continue through Swagger or the customer URL for the remaining lifecycle.

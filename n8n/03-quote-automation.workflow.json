@@ -1,0 +1,246 @@
+{
+  "name": "DozenDev - Quote Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dozendev-quote-automation",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -800,
+        0
+      ],
+      "id": "webhook-quote-automation",
+      "name": "Ricevi Lead da Leads Workflow",
+      "webhookId": "dozendev-quote-automation"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.item.json.body || $input.item.json;\nconst crypto = require('crypto');\n\nconst leadId = item.id || item.leadId || `WEB-${Date.now()}`;\nconst rawTier = (item.pacchetto || item.categoria || 'STARTUP').toUpperCase();\n\nlet serviceCode = 'WEB_BASE_5';\nlet discountConfig = { code: 'PIEMONTE30' };\nlet projectName = 'Sito Web STARTUP (Promo PMI -30%)';\n\nif (rawTier.includes('PREMIUM')) {\n  serviceCode = 'WEB_PREMIUM';\n  discountConfig = null;\n  projectName = 'Sito Web PREMIUM (E-commerce / Headless CMS)';\n} else if (rawTier.includes('EXCLUSIVE')) {\n  serviceCode = 'WEB_EXCLUSIVE';\n  discountConfig = null;\n  projectName = 'Sito Web EXCLUSIVE (Portale Enterprise / Web App)';\n}\n\nlet noteText = item.note || item.dettagli || item.messaggio || '';\nif (item.automazioneRichiesta && item.automazioneRichiesta !== 'Nessuna automazione aggiuntiva') {\n  noteText = `[Automazione inclusa da qualificare in call: ${item.automazioneRichiesta}]\\n${noteText}`.trim();\n}\n\nconst quoteRequestPayload = {\n  customer: {\n    business_name: item.nome || item.referente || 'Cliente DozenDev',\n    email: item.email,\n    contact_name: item.nome || item.referente || 'Referente',\n    vat_number: null,\n    address: null\n  },\n  project_name: projectName,\n  project_type: 'web',\n  items: [\n    { code: serviceCode, quantity: 1 }\n  ],\n  discount: discountConfig,\n  external_lead_id: leadId,\n  source: 'website_quote_form',\n  source_data: {\n    sourceUrl: item.sitoAttuale || null,\n    stack: item.stack || null,\n    modalita: item.modalitaContatto || null\n  },\n  notes: noteText || null,\n  valid_days: 14\n};\n\nconst secret = $env.QUOTE_ENGINE_HMAC_SECRET || 'dozendev-secret-lead-key-2026';\nconst ts = Math.floor(Date.now() / 1000).toString();\nconst rawBody = JSON.stringify(quoteRequestPayload);\nconst sig = crypto.createHmac('sha256', secret).update(`${ts}.${rawBody}`).digest('hex');\n\nreturn {\n  leadId,\n  email: item.email,\n  nome: item.nome || item.referente || 'Cliente',\n  quoteRequest: quoteRequestPayload,\n  timestamp: ts,\n  signature: `sha256=${sig}`,\n  rawBody\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -540,
+        0
+      ],
+      "id": "format-quote-request",
+      "name": "Prepara Richiesta & Calcola HMAC"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.QUOTE_ENGINE_URL || 'http://quote-engine:8000' }}/api/v1/quotes",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "X-Timestamp",
+              "value": "={{ $json.timestamp }}"
+            },
+            {
+              "name": "X-Signature",
+              "value": "={{ $json.signature }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.quoteRequest) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -280,
+        0
+      ],
+      "id": "create-quote-engine",
+      "name": "Crea Preventivo nel Quote Engine"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.QUOTE_ENGINE_URL || 'http://quote-engine:8000' }}/api/v1/quotes/{{ $json.quote_id }}/pdf",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -20,
+        -100
+      ],
+      "id": "download-quote-pdf",
+      "name": "Scarica PDF Proposta",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Proposte-Preventivi",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Quote ID": "={{ $('Crea Preventivo nel Quote Engine').item.json.quote_id }}",
+            "Quote Number": "={{ $('Crea Preventivo nel Quote Engine').item.json.quote_number }}",
+            "Lead ID": "={{ $('Prepara Richiesta & Calcola HMAC').item.json.leadId }}",
+            "Cliente": "={{ $('Prepara Richiesta & Calcola HMAC').item.json.nome }}",
+            "Email": "={{ $('Prepara Richiesta & Calcola HMAC').item.json.email }}",
+            "Importo Netto": "={{ $('Crea Preventivo nel Quote Engine').item.json.totals.net_total }} €",
+            "Stato": "={{ $('Crea Preventivo nel Quote Engine').item.json.status }}",
+            "URL Proposta": "={{ $('Crea Preventivo nel Quote Engine').item.json.public_url }}",
+            "Data Generazione": "={{ new Date().toISOString() }}"
+          },
+          "matchingColumns": [],
+          "schema": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        -100
+      ],
+      "id": "update-google-sheets-quote",
+      "name": "Salva Proposta su Google Sheets",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Prepara Richiesta & Calcola HMAC').item.json.email }}",
+        "subject": "=La tua proposta commerciale DozenDev – {{ $('Crea Preventivo nel Quote Engine').item.json.project_name }}",
+        "emailType": "html",
+        "message": "<div style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #07070a; color: #f4f4f5; padding: 32px 24px; border-radius: 12px; max-width: 600px; margin: 0 auto;\">\n  <div style=\"margin-bottom: 24px;\">\n    <span style=\"color: #ceff1a; font-family: monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;\">DOZENDEV // PROPOSTA COMMERCIALE</span>\n    <h2 style=\"color: #ffffff; margin: 8px 0 0 0; font-size: 22px;\">La tua stima indicativa è pronta</h2>\n  </div>\n  <p style=\"font-size: 15px; color: #e4e4e7; line-height: 1.6;\">\n    Ciao <strong>{{ $('Prepara Richiesta & Calcola HMAC').item.json.nome }}</strong>,<br><br>\n    grazie per aver descritto il tuo progetto. Abbiamo elaborato la tua stima di preventivo iniziale secondo i listini trasparenti DozenDev:\n  </p>\n  <div style=\"background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 18px; margin: 20px 0;\">\n    <p style=\"margin: 0 0 8px 0; font-size: 13px; color: #a1a1aa; text-transform: uppercase; font-family: monospace;\">Dettaglio Soluzione</p>\n    <p style=\"margin: 0 0 8px 0; font-size: 16px; font-weight: bold; color: #ffffff;\">{{ $('Crea Preventivo nel Quote Engine').item.json.project_name }}</p>\n    <p style=\"margin: 0; font-size: 20px; font-weight: 800; color: #ceff1a;\">{{ $('Crea Preventivo nel Quote Engine').item.json.totals.net_total }} € <span style=\"font-size: 13px; font-weight: normal; color: #a1a1aa;\">+ IVA</span></p>\n  </div>\n  <p style=\"font-size: 14px; color: #a1a1aa; margin: 16px 0;\">\n    Valida per 14 giorni. Puoi visionare il documento completo, personalizzare gli optional inclusi o scaricare il PDF al seguente link protetto:\n  </p>\n  <div style=\"text-align: center; margin: 28px 0;\">\n    <a href=\"{{ $('Crea Preventivo nel Quote Engine').item.json.public_url }}\" style=\"display: inline-block; background: #ceff1a; color: #07070a; font-weight: bold; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 15px;\">Visualizza la proposta online →</a>\n  </div>\n  <div style=\"border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; margin-top: 24px;\">\n    <p style=\"font-size: 13px; color: #a1a1aa; line-height: 1.5; margin: 0 0 10px 0;\">\n      <strong>Vuoi approfondire o definire i dettagli operativi?</strong><br>\n      Dalla pagina della proposta potrai cliccare <em>\"Mi interessa, fissiamo una call\"</em> per scegliere giorno e ora della discovery call di 15-30 minuti direttamente su Cal.com.\n    </p>\n    <p style=\"font-size: 12px; color: #71717a; margin: 0;\">\n      DozenDev di Domenico Mazza · Corso Castelfidardo 30/A, Torino · ciao@dozendev.it\n    </p>\n  </div>\n</div>",
+        "options": {
+          "attachments": "data"
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        520,
+        -100
+      ],
+      "id": "send-proposal-email",
+      "name": "Invia Email Proposta al Prospect"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.QUOTE_ENGINE_URL || 'http://quote-engine:8000' }}/api/v1/quotes/{{ $('Crea Preventivo nel Quote Engine').item.json.quote_id }}/email-status",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ status: 'SENT', provider: 'smtp', message_id: $json.messageId || 'SENT-N8N' }) }}"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        -100
+      ],
+      "id": "record-email-success",
+      "name": "Registra Email Inviata (Quote Engine)",
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Ricevi Lead da Leads Workflow": {
+      "main": [
+        [
+          {
+            "node": "Prepara Richiesta & Calcola HMAC",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepara Richiesta & Calcola HMAC": {
+      "main": [
+        [
+          {
+            "node": "Crea Preventivo nel Quote Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crea Preventivo nel Quote Engine": {
+      "main": [
+        [
+          {
+            "node": "Scarica PDF Proposta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scarica PDF Proposta": {
+      "main": [
+        [
+          {
+            "node": "Salva Proposta su Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salva Proposta su Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Invia Email Proposta al Prospect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Invia Email Proposta al Prospect": {
+      "main": [
+        [
+          {
+            "node": "Registra Email Inviata (Quote Engine)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

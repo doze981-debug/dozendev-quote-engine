@@ -1,0 +1,175 @@
+{
+  "version": "2026.09.1",
+  "currency": "EUR",
+  "prices_exclude_vat": true,
+  "vat_rate": 22,
+  "services": [
+    {
+      "code": "WEB_BASE_5",
+      "category": "web",
+      "name": "Sito web fino a 5 pagine",
+      "client_description": "Progettazione e sviluppo di un sito web aziendale fino a 5 pagine.",
+      "unit_price": 1800,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "THIRD_PARTY"
+      ],
+      "customer_configurable": false,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "WEB_PAGE_EXTRA",
+      "category": "web",
+      "name": "Pagina aggiuntiva",
+      "client_description": "Pagina aggiuntiva oltre lo scope base.",
+      "unit_price": 180,
+      "unit": "page",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [],
+      "customer_configurable": false,
+      "customer_max_quantity": 10
+    },
+    {
+      "code": "CMS_BLOG",
+      "category": "web",
+      "name": "CMS / Blog",
+      "client_description": "Gestione autonoma di articoli e contenuti editoriali.",
+      "unit_price": 350,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [],
+      "customer_configurable": true,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "AUTO_CONTENT",
+      "category": "automation",
+      "name": "Automazione newsletter e social",
+      "client_description": "Alla pubblicazione di un contenuto vengono generate bozze newsletter e social da validare prima dell'invio/pubblicazione.",
+      "unit_price": 500,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "AI",
+        "NEWSLETTER_TRACKING",
+        "THIRD_PARTY"
+      ],
+      "customer_configurable": true,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "CRM_INTEGRATION",
+      "category": "integration",
+      "name": "Integrazione CRM",
+      "client_description": "Connessione dei flussi del progetto al CRM concordato.",
+      "unit_price": 400,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "DPA",
+        "THIRD_PARTY"
+      ],
+      "customer_configurable": true,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "CLIENT_AREA",
+      "category": "webapp",
+      "name": "Area riservata cliente",
+      "client_description": "Area autenticata dedicata al cliente e ai contenuti previsti dallo scope.",
+      "unit_price": 900,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "DPA"
+      ],
+      "customer_configurable": true,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "RAG_BASE",
+      "category": "ai",
+      "name": "RAG documentale base",
+      "client_description": "Sistema di ricerca e risposta su documentazione concordata.",
+      "unit_price": 1500,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "AI",
+        "DPA",
+        "THIRD_PARTY"
+      ],
+      "customer_configurable": true,
+      "customer_max_quantity": 1
+    },
+    {
+      "code": "WEB_PREMIUM",
+      "category": "web",
+      "name": "Sito web Premium (E-commerce / Headless CMS)",
+      "client_description": "Soluzione web Premium con SEO avanzata & alberatura strategica, performance pack con cache dinamica, modulo blog con CMS autonomo, e-commerce starter con Stripe/PayPal e integrazione webhook ordini/lead verso CRM.",
+      "unit_price": 3500,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "THIRD_PARTY",
+        "DPA"
+      ],
+      "customer_configurable": false,
+      "customer_max_quantity": 1,
+      "deliverables": [
+        "Tutto ciò che include STARTUP",
+        "SEO Avanzata & alberatura strategica categorie",
+        "Performance Pack con cache dinamica",
+        "Modulo Blog con CMS autonomo & pannello intuitivo",
+        "E-commerce starter (catalogo, carrello, pagamenti Stripe/PayPal)",
+        "Integrazione Webhook ordini e lead verso CRM"
+      ]
+    },
+    {
+      "code": "WEB_EXCLUSIVE",
+      "category": "web",
+      "name": "Sito web Exclusive (Portale Enterprise / Web App su misura)",
+      "client_description": "Soluzione web enterprise con SEO full-scope, performance pack distribuito sub-100ms, headless CMS con ruoli ed editorial workflow, e-commerce custom, database PostgreSQL dedicato, area riservata protetta, dashboard analitica real-time e integrazioni API ERP/Gestionali.",
+      "unit_price": 5000,
+      "unit": "project",
+      "active": true,
+      "taxable": true,
+      "contract_tags": [
+        "THIRD_PARTY",
+        "DPA",
+        "AI"
+      ],
+      "customer_configurable": false,
+      "customer_max_quantity": 1,
+      "deliverables": [
+        "Tutto ciò che include PREMIUM",
+        "SEO Full-Scope & architettura multi-livello",
+        "Performance Pack enterprise distribuito sub-100ms",
+        "Headless CMS enterprise con ruoli ed editorial workflow",
+        "E-commerce premium su misura con checkout proprietario",
+        "Database relazionale PostgreSQL dedicato",
+        "Area riservata protetta e gestione commesse",
+        "Dashboard operativa metriche e margini real-time",
+        "Integrazioni API ERP/Gestionali (Zucchetti, TeamSystem)"
+      ]
+    }
+  ],
+  "discount_rules": [
+    {
+      "code": "PIEMONTE30",
+      "name": "Promo locale Piemonte -30%",
+      "type": "percent",
+      "value": 30,
+      "active": true
+    }
+  ]
+}

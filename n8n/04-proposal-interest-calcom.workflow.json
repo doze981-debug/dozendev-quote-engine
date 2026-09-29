@@ -1,0 +1,250 @@
+{
+  "name": "DozenDev - Proposal Interest & Cal.com",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dozendev-proposal-interest",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -600,
+        -140
+      ],
+      "id": "webhook-proposal-interest",
+      "name": "Ricevi PROPOSAL_INTERESTED",
+      "webhookId": "dozendev-proposal-interest"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst quote = body.quote || {};\nconst customer = quote.customer || {};\nconst audit = body.audit || {};\n\nconst calcomUrl = $env.CALCOM_BOOKING_URL || 'https://cal.com/dozendev/discovery';\nconst quoteId = quote.quote_id || body.quote_id;\n\nreturn {\n  quoteId,\n  customerName: customer.business_name || audit.accepted_by || 'Gentile Cliente',\n  customerEmail: customer.email || audit.accepted_email,\n  projectName: quote.project_name || 'Progetto Web DozenDev',\n  calcomUrl,\n  quoteUrl: quote.public_url || `https://dozendev.it/proposta/${quoteId}`\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        -140
+      ],
+      "id": "format-call-invitation",
+      "name": "Formatta Invito Cal.com"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.customerEmail }}",
+        "subject": "=Fissiamo la Discovery Call – {{ $json.projectName }}",
+        "emailType": "html",
+        "message": "<div style=\"font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #07070a; color: #f4f4f5; padding: 32px 24px; border-radius: 12px; max-width: 600px; margin: 0 auto;\">\n  <div style=\"margin-bottom: 24px;\">\n    <span style=\"color: #00e5ff; font-family: monospace; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;\">DOZENDEV // DISCOVERY CALL</span>\n    <h2 style=\"color: #ffffff; margin: 8px 0 0 0; font-size: 22px;\">Conferma interesse ricevuta!</h2>\n  </div>\n  <p style=\"font-size: 15px; color: #e4e4e7; line-height: 1.6;\">\n    Ciao <strong>{{ $json.customerName }}</strong>,<br><br>\n    abbiamo registrato con successo il tuo interesse per la proposta commerciale di <strong>{{ $json.projectName }}</strong>.\n  </p>\n  <p style=\"font-size: 15px; color: #e4e4e7; line-height: 1.6;\">\n    Il passo successivo è una breve <strong>call conoscitiva di 15-30 minuti</strong> con Domenico Mazza (Lead Software Engineer & Founder di DozenDev) per:\n  </p>\n  <ul style=\"font-size: 14px; color: #a1a1aa; line-height: 1.8;\">\n    <li>Allineare esattamente gli obiettivi aziendali e le tempistiche</li>\n    <li>Qualificare le funzionalità avanzate e le automazioni richieste</li>\n    <li>Definire il piano di consegna e il preventivo finale vincolante</li>\n  </ul>\n  <div style=\"text-align: center; margin: 28px 0;\">\n    <a href=\"{{ $json.calcomUrl }}\" style=\"display: inline-block; background: #00e5ff; color: #07070a; font-weight: bold; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 15px;\">Scegli giorno e ora su Cal.com →</a>\n  </div>\n  <p style=\"font-size: 13px; color: #71717a; text-align: center;\">\n    Se preferisci, puoi anche rispondere direttamente a questa email o scriverci su WhatsApp: +39 391 714 5821.\n  </p>\n</div>"
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -140
+      ],
+      "id": "send-calcom-email",
+      "name": "Invia Email con Link Cal.com"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "calcom-booking-events",
+        "responseMode": "onReceived",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -600,
+        140
+      ],
+      "id": "webhook-calcom-events",
+      "name": "Ricevi Webhook da Cal.com",
+      "webhookId": "calcom-booking-events"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst eventType = body.triggerEvent || body.type || 'BOOKING_CREATED';\nconst payload = body.payload || {};\n\n// Cerca eventuale quote_id tra le risposte personalizzate o parametri Cal.com\nconst customInputs = payload.customInputs || {};\nconst quoteId = customInputs.quote_id || payload.metadata?.quote_id || null;\n\nreturn {\n  eventType,\n  quoteId,\n  bookingId: payload.uid || payload.id,\n  scheduledAt: payload.startTime,\n  attendeeEmail: payload.attendees?.[0]?.email,\n  cancellationReason: payload.cancellationReason || 'Annullato da utente'\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        140
+      ],
+      "id": "parse-calcom-event",
+      "name": "Estrai Dati Prenotazione Cal.com"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.eventType }}",
+                    "rightValue": "BOOKING_CREATED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Call Prenotata"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.eventType }}",
+                    "rightValue": "BOOKING_CANCELLED",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Call Cancellata"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -80,
+        140
+      ],
+      "id": "switch-calcom-event",
+      "name": "Smista Evento Cal.com"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.QUOTE_ENGINE_URL || 'http://quote-engine:8000' }}/api/v1/quotes/{{ $json.quoteId }}/call-booked",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ external_booking_id: String($json.bookingId), scheduled_at: $json.scheduledAt }) }}"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        180,
+        60
+      ],
+      "id": "update-quote-call-booked",
+      "name": "Aggiorna Quote CALL_BOOKED",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.QUOTE_ENGINE_URL || 'http://quote-engine:8000' }}/api/v1/quotes/{{ $json.quoteId }}/call-cancelled",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ external_booking_id: String($json.bookingId), cancellation_reason: $json.cancellationReason }) }}"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        180,
+        220
+      ],
+      "id": "update-quote-call-cancelled",
+      "name": "Aggiorna Quote CALL_CANCELLED",
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Ricevi PROPOSAL_INTERESTED": {
+      "main": [
+        [
+          {
+            "node": "Formatta Invito Cal.com",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatta Invito Cal.com": {
+      "main": [
+        [
+          {
+            "node": "Invia Email con Link Cal.com",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ricevi Webhook da Cal.com": {
+      "main": [
+        [
+          {
+            "node": "Estrai Dati Prenotazione Cal.com",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Estrai Dati Prenotazione Cal.com": {
+      "main": [
+        [
+          {
+            "node": "Smista Evento Cal.com",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smista Evento Cal.com": {
+      "main": [
+        [
+          {
+            "node": "Aggiorna Quote CALL_BOOKED",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Aggiorna Quote CALL_CANCELLED",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
