@@ -37,12 +37,14 @@ from .schemas import (
     EmailStatusRequest,
 )
 from .store import QuoteStore
+from .admin import router as admin_router
 
 BASE = Path(__file__).resolve().parent.parent
 PRICELIST_PATH = BASE / "data" / "pricelist.json"
 CONTRACT_MASTER_PATH = BASE / "data" / "Contratto_Master_DozenDev.json"
 
 app = FastAPI(title="DozenDev Quote-to-Project Engine", version="0.4.0")
+app.include_router(admin_router)
 store = QuoteStore()
 
 HMAC_SECRET = os.getenv("QUOTE_ENGINE_HMAC_SECRET", "").strip()
